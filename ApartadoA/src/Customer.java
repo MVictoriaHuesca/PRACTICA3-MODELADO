@@ -1,5 +1,5 @@
 import java.util.*;
-import java.time.LocalDate;
+import java.time.*;
 
 
 public class Customer implements ICustomer{
@@ -44,7 +44,7 @@ public class Customer implements ICustomer{
     
 
 
-    public void alquilarCoche(LocalDate startDate, LocalDate endDate, Car car,RentalOffice pickUpOffice){
+    public void alquilarCoche(LocalDateTime startDate, LocalDateTime endDate, Car car,RentalOffice pickUpOffice){
         Rental nuevoRental = new Rental(startDate, endDate, car, this, pickUpOffice);
         rentals.add(nuevoRental);
         System.out.println("Se ha añadido un nuevo alquiler. Total alquileres de este customer: " + rentals.size());

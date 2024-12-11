@@ -1,14 +1,14 @@
-import java.time.LocalDate;
+import java.time.*;
 
 public class Rental {
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     private Car car;
     private Customer customer;
     private RentalOffice pickUpOffice;
 
-    public Rental(LocalDate sDate, LocalDate eDate, Car c, Customer customer, RentalOffice pickUpOffice) {
+    public Rental(LocalDateTime sDate, LocalDateTime eDate, Car c, Customer customer, RentalOffice pickUpOffice) {
         assert(noAlquileresSolapados(customer, sDate) && sDate.isBefore(eDate) && noOficinasDistintas(car, pickUpOffice)); // Se comprueban las restricciones de integridad 1, 2 y 3
         this.car = c;
         this.startDate = sDate;
@@ -19,11 +19,11 @@ public class Rental {
 
     //------------- getters ----------------
     
-    private LocalDate getStartDate() {
+    private LocalDateTime getStartDate() {
         return this.startDate;
     }
 
-    private LocalDate getEndDate() {
+    private LocalDateTime getEndDate() {
         return this.endDate;
     }
     
@@ -42,11 +42,11 @@ public class Rental {
     //------------- setters ----------------
 
 
-    private void setStartDate(LocalDate startDate) {
+    private void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    private void setEndDate(LocalDate endDate) {
+    private void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
@@ -64,7 +64,7 @@ public class Rental {
 
     //------------- other methods ----------------
 
-    private boolean noAlquileresSolapados(Customer customer, LocalDate startDate) { // Comprueba que un cliente no tenga alquileres solapados
+    private boolean noAlquileresSolapados(Customer customer, LocalDateTime startDate) { // Comprueba que un cliente no tenga alquileres solapados
         boolean sol = true;
         for(Rental rental: customer.getRentals()) {
             if(rental.getEndDate().isAfter(startDate)){
@@ -74,7 +74,7 @@ public class Rental {
         return sol;
     }
 
-    private boolean noOficinasDistintas(Car car, RentalOffice pickUpOffice) {
+    private boolean noOficinasDistintas(Car car, RentalOffice pickUpOffice) { // Comprueba que la oficina asignada al coche es la misma que la de pickup
         return car.getAssignedOffice().equals(pickUpOffice);
     }    
 }

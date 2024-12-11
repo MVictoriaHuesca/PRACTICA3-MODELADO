@@ -1,12 +1,13 @@
-import java.time.LocalDate;
+import java.time.*;
 
 public class WebRental extends Rental{
     private Integer deliveryTime;   // 0..1 (cuando sea 0 Integer será null)
 
     private RentalOffice deliveryOffice;
     
-    public WebRental(LocalDate startDate, LocalDate endDate, Car car, Customer customer, RentalOffice pickUpOffice, RentalOffice deliveryOffice) {
+    public WebRental(LocalDateTime startDate, LocalDateTime endDate, Car car, Customer customer, RentalOffice pickUpOffice, RentalOffice deliveryOffice) {
         super(startDate, endDate, car, customer, pickUpOffice);
+        assert(comprobarHoraOficinasDiferentes(pickUpOffice, deliveryOffice, endDate));
         this.deliveryTime = 0;
         this.deliveryOffice = deliveryOffice;
     }
@@ -29,6 +30,17 @@ public class WebRental extends Rental{
         this.deliveryOffice = deliveryOffice;
     }
 
-    // COMPROBAR LA RESTRICCIÓN DE INTEGRIDAD Nº4
+    //----------------- other methods -------------------
+
+    // Devuelve true si, cuando las oficinas de recogida/entrega son diferentes, la hora es anterior a las 13h
+    private boolean comprobarHoraOficinasDiferentes(RentalOffice pickupOffice, RentalOffice deliveryOffice, LocalDateTime endDate){ 
+        boolean sol = true;
+        if(pickupOffice != deliveryOffice){
+            if(endDate.getHour() > 13) {
+                sol = false;
+            }
+        }
+        return sol;
+    }
 }
 
