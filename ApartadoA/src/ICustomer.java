@@ -1,3 +1,4 @@
-public interface ICustomer {
-   public WebRentalIterator createWebRentalIterator();
+
+public interface ICustomer<T> {
+   Iterator<T> createWebRentalIterator();
 }

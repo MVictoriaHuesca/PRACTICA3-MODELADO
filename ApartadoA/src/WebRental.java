@@ -18,7 +18,7 @@ public class WebRental extends Rental{
         return deliveryTime;
     }
 
-    private RentalOffice getDeliveryOffice(){
+    protected RentalOffice getDeliveryOffice(){
         return deliveryOffice;
     }
 

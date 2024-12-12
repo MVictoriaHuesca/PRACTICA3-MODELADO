@@ -1,4 +1,6 @@
 import java.time.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Rental {
     private LocalDateTime startDate;
@@ -35,7 +37,7 @@ public class Rental {
         return this.customer;
     }
 
-    private RentalOffice getpickUpOffice() {
+    protected RentalOffice getpickUpOffice() {
         return this.pickUpOffice;
     }
     
@@ -63,16 +65,19 @@ public class Rental {
     }
 
     //------------- other methods ----------------
-
+    
     private boolean noAlquileresSolapados(Customer customer, LocalDateTime startDate) { // Comprueba que un cliente no tenga alquileres solapados
         boolean sol = true;
-        for(Rental rental: customer.getRentals()) {
+        List<Rental> allRentals = new ArrayList<>(customer.getRentalsOnSite());
+        allRentals.addAll(customer.getWebRentals());
+        for(Rental rental: allRentals) {
             if(rental.getEndDate().isAfter(startDate)){
                 sol = false;
             }
         }
         return sol;
     }
+    
 
     private boolean noOficinasDistintas(Car car, RentalOffice pickUpOffice) { // Comprueba que la oficina asignada al coche es la misma que la de pickup
         return car.getAssignedOffice().equals(pickUpOffice);

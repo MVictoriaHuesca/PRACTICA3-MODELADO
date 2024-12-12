@@ -3,7 +3,7 @@ import java.time.*;
 public class RentalOnSite extends Rental {
     private String comments;
 
-    public RentalOnSite(LocalDateTime startDate, LocalDateTime endDate, Customer customer, Car car, RentalOffice pickUpOffice, String comments){
+    public RentalOnSite(LocalDateTime startDate, LocalDateTime endDate, Car car, Customer customer, RentalOffice pickUpOffice, String comments){
         super(startDate, endDate, car, customer, pickUpOffice);
         this.comments = comments;
     }
