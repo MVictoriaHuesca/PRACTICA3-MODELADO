@@ -14,6 +14,7 @@ public class RentalOffice {
         this.rentals = new LinkedList<Rental>();
         this.cars = new LinkedList<Car>();
         this.webRentals = new LinkedList<WebRental>();
+        System.out.println("La oficina situada en " + address + " se ha creado correctamente");
     }
 
     private String getAddress() {

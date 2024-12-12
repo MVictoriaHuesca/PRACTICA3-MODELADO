@@ -13,6 +13,7 @@ public class Customer implements ICustomer<WebRental> {
         this.name = name;
         this.rentalsOnSite = new LinkedList<>();
         this.webRentals = new LinkedList<>();
+        System.out.println("El cliente " + name + " se ha registrado correctamente");
     }
 
     //--------------- getters --------------------
@@ -55,13 +56,18 @@ public class Customer implements ICustomer<WebRental> {
     public void rentCarOnSite(LocalDateTime startDate, LocalDateTime endDate, Car car,RentalOffice pickUpOffice, String comment){
         RentalOnSite rental = new RentalOnSite(startDate, endDate, car, this, pickUpOffice, comment);
         rentalsOnSite.add(rental);
-        System.out.println("Se ha añadido un nuevo alquiler en oficina. Total alquileres en oficina de este cliente: " + rentalsOnSite.size());
+        car.getRental().add(rental);
+        System.out.println(this.name + " ha añadido un nuevo alquiler en oficina. Total alquileres de este cliente: " + (rentalsOnSite.size() + webRentals.size()));
     }
 
+    /*
+        hola
+     */
     public void rentCarOnWeb(LocalDateTime startDate, LocalDateTime endDate, Car car,RentalOffice pickUpOffice, RentalOffice deliveryoffice){
         WebRental rental = new WebRental(startDate, endDate, car, this, pickUpOffice, deliveryoffice);
         webRentals.add(rental);
-        System.out.println("Se ha añadido un nuevo alquiler por web. Total alquileres por web de este cliente: " + webRentals.size());
+        car.getRental().add(rental);
+        System.out.println(this.name + " ha añadido un nuevo alquiler por web. Total alquileres de este cliente: " + (rentalsOnSite.size() + webRentals.size()));
     }
 
     public Integer numberOfRentalsWithDifferentOffices() {

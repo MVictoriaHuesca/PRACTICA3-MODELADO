@@ -12,13 +12,14 @@ public class Car {
         this.model = model;
         this.assignedOffice = assignedOffice;
         this.rentals = new LinkedList<Rental>();
+        System.out.println("El coche se ha creado correctamente");
     }
 
     private String getLicensePlate() {
         return licensePlate;
     }
 
-    private List<Rental> getRental(){
+    public List<Rental> getRental(){
         return rentals;
     }
 
