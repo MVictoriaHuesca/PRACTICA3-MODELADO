@@ -19,7 +19,7 @@ public class Rental {
         this.pickUpOffice = pickUpOffice;
     }
 
-    //------------- getters ----------------
+//-------------------- GETTERS --------------------------
     
     private LocalDateTime getStartDate() {
         return this.startDate;
@@ -41,8 +41,7 @@ public class Rental {
         return this.pickUpOffice;
     }
     
-    //------------- setters ----------------
-
+//-------------------- SETTERS --------------------------
 
     private void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
@@ -64,9 +63,12 @@ public class Rental {
         this.pickUpOffice = pickUpOffice;
     }
 
-    //------------- other methods ----------------
+//-------------------- OTHER METHODS --------------------------
     
-    private boolean noAlquileresSolapados(Customer customer, LocalDateTime startDate) { // Comprueba que un cliente no tenga alquileres solapados
+    /**
+     * Comprueba que un cliente no tenga alquileres solapados
+     */
+    private boolean noAlquileresSolapados(Customer customer, LocalDateTime startDate) { 
         boolean sol = true;
         List<Rental> allRentals = new ArrayList<>(customer.getRentalsOnSite());
         allRentals.addAll(customer.getWebRentals());
@@ -78,8 +80,10 @@ public class Rental {
         return sol;
     }
     
-
-    private boolean noOficinasDistintas(Car car, RentalOffice pickUpOffice) { // Comprueba que la oficina asignada al coche es la misma que la de pickup
+    /**
+     * Comprueba que la oficina asignada al coche es la misma que la de pickup
+     */
+    private boolean noOficinasDistintas(Car car, RentalOffice pickUpOffice) {  
         return car.getAssignedOffice().equals(pickUpOffice);
     }    
 }

@@ -16,13 +16,13 @@ public class Customer implements ICustomer<WebRental> {
         System.out.println("El cliente " + name + " se ha registrado correctamente");
     }
 
-    //--------------- getters --------------------
+//-------------------- GETTERS --------------------------
     
     private String getDni(){
         return this.dni;
     }
 
-    private String getName(){
+    protected String getName(){
         return this.name;
     }
     
@@ -34,7 +34,7 @@ public class Customer implements ICustomer<WebRental> {
         return this.webRentals;
     }
     
-    //--------------- setters ---------------------
+//-------------------- SETTERS --------------------------
     
     private void setName(String name) {
         this.name = name;
@@ -52,16 +52,20 @@ public class Customer implements ICustomer<WebRental> {
         this.webRentals = webRentals;
     }
 
-    
+//-------------------- OTHER METHODS --------------------------
+
+    /**
+     * Permite alquilar un coche en una oficina de alquiler
+     */
     public void rentCarOnSite(LocalDateTime startDate, LocalDateTime endDate, Car car,RentalOffice pickUpOffice, String comment){
         RentalOnSite rental = new RentalOnSite(startDate, endDate, car, this, pickUpOffice, comment);
         rentalsOnSite.add(rental);
         car.getRental().add(rental);
         System.out.println(this.name + " ha añadido un nuevo alquiler en oficina. Total alquileres de este cliente: " + (rentalsOnSite.size() + webRentals.size()));
     }
-
-    /*
-        hola
+    
+    /**
+     * Permite alquilar un coche a través de la web
      */
     public void rentCarOnWeb(LocalDateTime startDate, LocalDateTime endDate, Car car,RentalOffice pickUpOffice, RentalOffice deliveryoffice){
         WebRental rental = new WebRental(startDate, endDate, car, this, pickUpOffice, deliveryoffice);
@@ -70,6 +74,9 @@ public class Customer implements ICustomer<WebRental> {
         System.out.println(this.name + " ha añadido un nuevo alquiler por web. Total alquileres de este cliente: " + (rentalsOnSite.size() + webRentals.size()));
     }
 
+    /**
+     * Devuelve el número de alquileres de un cliente en los que difieren la oficina de entrega y devolución del coche
+     */
     public Integer numberOfRentalsWithDifferentOffices() {
         int count = 0;
         Iterator<WebRental> iterator = createWebRentalIterator();

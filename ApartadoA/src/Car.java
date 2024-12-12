@@ -15,6 +15,8 @@ public class Car {
         System.out.println("El coche se ha creado correctamente");
     }
 
+//-------------------- GETTERS --------------------------
+
     private String getLicensePlate() {
         return licensePlate;
     }
@@ -27,9 +29,11 @@ public class Car {
         return model;
     }
 
-    public RentalOffice getAssignedOffice() { //es público porque accedemos a él en otra clase
+    protected RentalOffice getAssignedOffice() { //es público porque accedemos a él en otra clase
         return assignedOffice;
     }
+
+//-------------------- SETTERS --------------------------
 
     private void setLicensePlate(String licensePlate) {
         this.licensePlate = licensePlate;

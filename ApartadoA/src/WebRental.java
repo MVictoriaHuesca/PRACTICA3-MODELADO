@@ -1,7 +1,7 @@
 import java.time.*;
 
 public class WebRental extends Rental{
-    private Integer deliveryTime;   // 0..1 (cuando sea 0 Integer será null)
+    private Integer deliveryTime;   // Este atributo puede estar a null, representa la hora a la que se devuelve el coche
 
     private RentalOffice deliveryOffice;
     
@@ -12,7 +12,7 @@ public class WebRental extends Rental{
         this.deliveryOffice = deliveryOffice;
     }
 
-    //------------------------------------GETTERS AND SETTERS------------------------------------
+ //-------------------- GETTERS --------------------------
 
     private Integer getDeliveryTime(){
         return deliveryTime;
@@ -22,6 +22,8 @@ public class WebRental extends Rental{
         return deliveryOffice;
     }
 
+//-------------------- SETTERS --------------------------
+
     private void setDeliveryTime(Integer deliveryTime){
         this.deliveryTime = deliveryTime;
     }
@@ -30,9 +32,11 @@ public class WebRental extends Rental{
         this.deliveryOffice = deliveryOffice;
     }
 
-    //----------------- other methods -------------------
+//-------------------- OTHER METHODS --------------------------
 
-    // Devuelve true si, cuando las oficinas de recogida/entrega son diferentes, la hora es anterior a las 13h
+    /**
+     * Devuelve true si, cuando las oficinas de recogida/entrega son diferentes, la hora es anterior a las 13h
+     */
     private boolean comprobarHoraOficinasDiferentes(RentalOffice pickupOffice, RentalOffice deliveryOffice, LocalDateTime endDate){ 
         boolean sol = true;
         if(pickupOffice != deliveryOffice){
