@@ -55,6 +55,7 @@ public class Customer{
     
     public void rentCarOnSite(LocalDateTime startDate, LocalDateTime endDate, Car car,RentalOffice pickUpOffice, String comment){
         RentalOnSite rental = new RentalOnSite(startDate, endDate, car, this, pickUpOffice, comment);
+        pickUpOffice.getRental().add(rental);
         rentalsOnSite.add(rental);
         car.getRental().add(rental);
         System.out.println("Se ha añadido un nuevo alquiler en oficina. Total alquileres de este cliente: " + (rentalsOnSite.size() + webRentals.size()));
@@ -62,6 +63,8 @@ public class Customer{
 
     public void rentCarOnWeb(LocalDateTime startDate, LocalDateTime endDate, Car car,RentalOffice pickUpOffice, RentalOffice deliveryoffice){
         WebRental rental = new WebRental(startDate, endDate, car, this, pickUpOffice, deliveryoffice);
+        pickUpOffice.getRental().add(rental);
+        deliveryoffice.getWebRentals().add(rental);
         webRentals.add(rental);
         car.getRental().add(rental);
         System.out.println("Se ha añadido un nuevo alquiler por web. Total alquileres de este cliente: " + (rentalsOnSite.size() + webRentals.size()));

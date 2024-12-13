@@ -1,4 +1,4 @@
-import java.time.LocalDate;
+import java.time.*;
 import java.util.*;
 
 public class Car {
@@ -7,22 +7,25 @@ public class Car {
     private Model model;
     private RentalOffice assignedOffice;
     private List<Rental> rentals;
-    private ICarState state;
+    private CarState state;
 
     public Car(String licensePlate, Model model, RentalOffice assignedOffice) {
         this.licensePlate = licensePlate;
         this.model = model;
-        this.assignedOffice = assignedOffice;
+        this.assignedOffice = assignedOffice;        
         this.rentals = new LinkedList<Rental>();
-        this.state = new InServiceState();
+        this.assignedOffice.getCars().add(this);
+        this.state = new InServiceState(this);
         System.out.println("El coche se ha creado correctamente");
     }
+
+//-------------------- GETTERS --------------------------
 
     private String getLicensePlate() {
         return licensePlate;
     }
 
-    public List<Rental> getRental(){
+    protected List<Rental> getRental(){
         return rentals;
     }
 
@@ -30,10 +33,16 @@ public class Car {
         return model;
     }
 
-    public RentalOffice getAssignedOffice() { //es público porque accedemos a él en otra clase
+    private CarState getState() {
+        return state;
+    }
+    
+    protected RentalOffice getAssignedOffice() { //es protegido porque accedemos a él en otra clase
         return assignedOffice;
     }
 
+//-------------------- SETTERS --------------------------
+    
     private void setLicensePlate(String licensePlate) {
         this.licensePlate = licensePlate;
     }
@@ -50,20 +59,34 @@ public class Car {
         this.rentals = rentals;
     }
 
-    public void setState(ICarState state) {
+    private void setState(CarState state) {
         this.state = state;
     }
 
-    public ICarState getState() {
-        return state;
-    }
+//-------------------- OTHER METHODS --------------------------
 
-    //-----------metodos----------------
-
-    public void takeOutOfService(LocalDate backToServiceDate) {
-        if (state == null) {
-            throw new IllegalStateException("El estado del coche no está inicializado.");
+    public void takeOutOfService(LocalDateTime backToServiceDate) {
+        if (this.getState() instanceof OutOfServiceState || this.getState() instanceof IsSubstitute) {
+            System.out.println("El coche ya está fuera de servicio o es un coche sustituto");
+        } else {
+            this.setState(new OutOfServiceState(this, backToServiceDate));
+            List<Car> cars = this.assignedOffice.getCars();
+            Car substitute = null;
+            for(Car car : cars){
+                if(car.getModel().equals(this.getModel()) && car.getState() instanceof InServiceState && car != this){
+                    substitute = car;
+                    substitute.setState(new IsSubstitute(substitute));
+                    break;
+                }
+            }
+            
+            System.out.println("El coche se ha puesto fuera de servicio correctamente, fecha de vuelta al servicio: " + backToServiceDate);
+            
+            if(substitute != null) {
+                System.out.println("El coche sustituto es: " + substitute.getLicensePlate());
+            } else {
+                System.out.println("No hay coches sustitutos disponibles");
+            }
         }
-        state.takeOutOfService(this, backToServiceDate);
     }
 }

@@ -1,20 +1,13 @@
 import java.time.*;
 
 
-class OutOfServiceState implements ICarState {
-    private LocalDate backToServiceDate;
-    private Car substituteCar;
+class OutOfServiceState extends CarState{
+    private LocalDateTime backToServiceDate;
+    private Car car;
 
-    public OutOfServiceState(LocalDate backToServiceDate) {
+    public OutOfServiceState(Car car, LocalDateTime backToServiceDate) {
+        super(car);
         this.backToServiceDate = backToServiceDate;
     }
 
-    public void setSubstituteCar(Car substituteCar) {
-        this.substituteCar = substituteCar;
-    }
-
-    @Override
-    public void takeOutOfService(Car car, LocalDate backToServiceDate) {
-        System.out.println("El coche ya está fuera de servicio.");
-    }
 }

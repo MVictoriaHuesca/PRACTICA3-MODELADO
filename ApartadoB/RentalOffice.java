@@ -25,15 +25,15 @@ public class RentalOffice {
         return feeForDelivery;
     }
 
-    private List<Rental> getRental(){
+    protected List<Rental> getRental(){
         return rentals;
     }
 
-    private List<Car> getCars(){
+    protected List<Car> getCars(){
         return cars;
     }
 
-    private List<WebRental> getWebRentals(){
+    protected List<WebRental> getWebRentals(){
         return webRentals;
     }
 
