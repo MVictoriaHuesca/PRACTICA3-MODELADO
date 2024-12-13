@@ -1,3 +1,4 @@
+package src;
 import java.time.*;
 
 
@@ -8,5 +9,9 @@ class OutOfServiceState extends CarState{
         super(car);
         assert(backToServiceDate != null);
         this.backToServiceDate = backToServiceDate;
+    }
+
+    public String toString() {
+        return "Out of service until " + this.backToServiceDate;
     }
 }

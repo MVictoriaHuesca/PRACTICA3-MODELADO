@@ -1,3 +1,4 @@
+package src;
 import java.time.*;
 import java.util.*;
 
@@ -35,7 +36,7 @@ public class Car {
         return model;
     }
 
-    private CarState getState() {
+    protected CarState getState() {
         return state;
     }
     

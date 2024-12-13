@@ -3,7 +3,6 @@ import java.time.*;
 public class Main {
     public static void main(String[] args) {
         Customer Customer1 = new Customer("77515974W", "Pepe");
-        Customer Customer2 = new Customer("89562356T", "Sara");
 
         LocalDateTime fecha1 = LocalDateTime.of(LocalDate.of(2020,12,20), LocalTime.of(12,53));
         LocalDateTime fecha2 = LocalDateTime.of(LocalDate.of(2021,2,12), LocalTime.of(8,35));
