@@ -46,9 +46,9 @@ public class Main {
         // CASO 3: alquiler de coche sin descuento
         Customer3.rentCarOnSite(fecha1, fecha2, coche3, oficina1, null, "Alquiler de coche sin descuento");
         double price3 = Customer3.getRentalsOnSite().getLast().getPrice();
-        System.out.println("El precio del alquiler sin descuento es: " + price3);
+        System.out.println("El precio del alquiler sin descuento es: " + price3 + "\n");
 
-        
+
         //CASO 4: aplicar primero una estrategia de descuento y después cambiarla
         Customer4.rentCarOnSite(fecha1, fecha2, coche4, oficina2, amountPromotion, "Alquiler de coche con descuento por cantidad");
         double price4 = Customer4.getRentalsOnSite().getLast().getPrice();
