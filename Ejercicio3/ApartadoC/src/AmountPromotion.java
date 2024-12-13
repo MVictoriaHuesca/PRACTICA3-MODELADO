@@ -8,7 +8,7 @@ public class AmountPromotion implements IPromotionStrategy {
     }
 
     @Override
-    public int applyPromotion(int basePrice) {
+    public double applyPromotion(double basePrice) {
         return basePrice - amount;
     }
     

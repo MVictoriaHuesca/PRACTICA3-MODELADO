@@ -59,18 +59,18 @@ public class Customer{
     }
 
     
-    public void rentCarOnSite(LocalDateTime startDate, LocalDateTime endDate, Car car,RentalOffice pickUpOffice, String comment){
+    public void rentCarOnSite(LocalDateTime startDate, LocalDateTime endDate, Car car,RentalOffice pickUpOffice,IPromotionStrategy promotion, String comment){
         assert(startDate != null && endDate != null && car != null && pickUpOffice != null && comment != null);
-        RentalOnSite rental = new RentalOnSite(startDate, endDate, car, this, pickUpOffice, comment);
+        RentalOnSite rental = new RentalOnSite(startDate, endDate, car, this, pickUpOffice, promotion, comment);
         rentalsOnSite.add(rental);
         pickUpOffice.getRental().add(rental);
         car.getRental().add(rental);
         System.out.println("Se ha añadido un nuevo alquiler en oficina. Total alquileres de este cliente: " + (rentalsOnSite.size() + webRentals.size()));
     }
 
-    public void rentCarOnWeb(LocalDateTime startDate, LocalDateTime endDate, Car car,RentalOffice pickUpOffice, RentalOffice deliveryoffice){
+    public void rentCarOnWeb(LocalDateTime startDate, LocalDateTime endDate, Car car,RentalOffice pickUpOffice, IPromotionStrategy promotion, RentalOffice deliveryoffice){
         assert(startDate != null && endDate != null && car != null && pickUpOffice != null && deliveryoffice != null);
-        WebRental rental = new WebRental(startDate, endDate, car, this, pickUpOffice, deliveryoffice);
+        WebRental rental = new WebRental(startDate, endDate, car, this, pickUpOffice, promotion, deliveryoffice);
         pickUpOffice.getRental().add(rental);
         deliveryoffice.getWebRentals().add(rental);
         webRentals.add(rental);

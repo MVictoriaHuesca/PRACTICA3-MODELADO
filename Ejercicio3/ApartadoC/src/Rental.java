@@ -3,6 +3,7 @@ package Ejercicio3.ApartadoC;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.Duration;
 
 public class Rental {
     private LocalDateTime startDate;
@@ -79,7 +80,7 @@ public class Rental {
         this.pickUpOffice = pickUpOffice;
     }
 
-    private void setPromotion(IPromotionStrategy promotion) {
+    protected void setPromotion(IPromotionStrategy promotion) {
         this.promotion = promotion;
     }
 
@@ -103,9 +104,9 @@ public class Rental {
         return car.getAssignedOffice().equals(pickUpOffice);
     }    
 
-    public int getPrice(){
+    public double getPrice(){
         int days = (int) Duration.between(startDate, endDate).toDays();
-        int basePrice = car.getModel().getpricePerDay() * days;
+        double basePrice = car.getModel().getpricePerDay() * days;
         if (promotion != null) {
             return promotion.applyPromotion(basePrice);
         }

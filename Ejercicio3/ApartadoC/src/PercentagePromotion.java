@@ -1,6 +1,6 @@
 package Ejercicio3.ApartadoC;
 public class PercentagePromotion implements IPromotionStrategy {
-    private int percentage;
+    private double percentage;
 
     public PercentagePromotion(int percentage) {
         assert(percentage > 0);
@@ -8,8 +8,8 @@ public class PercentagePromotion implements IPromotionStrategy {
     }
 
     @Override
-    public int applyPromotion(int basePrice) {
-        return basePrice - (basePrice * percentage / 100);
+    public double applyPromotion(double basePrice) {
+        return basePrice - (basePrice * (percentage / 100));
     }
     
 }

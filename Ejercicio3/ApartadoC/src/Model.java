@@ -3,11 +3,11 @@ import java.util.*;
 
 public class Model{
     private String name;
-    private Integer pricePerDay;
+    private Double pricePerDay;
 
     private List<Car> cars;
     
-    public Model (String name, Integer pricePerDay) {
+    public Model (String name, Double pricePerDay) {
         assert(name != null && pricePerDay != null);
         this.name = name;
         this.pricePerDay = pricePerDay;
@@ -21,7 +21,7 @@ public class Model{
         return this.name;
     }
 
-    protected Integer getpricePerDay(){
+    protected Double getpricePerDay(){
         return this.pricePerDay;
     }
 
