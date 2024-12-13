@@ -75,7 +75,7 @@ public class Customer implements ICustomer<WebRental> {
     }
 
     /**
-     * Devuelve el número de alquileres de un cliente en los que difieren la oficina de entrega y devolución del coche
+     * Devuelve el número de alquileres web de un cliente en los que difieren la oficina de entrega y devolución del coche
      */
     public Integer numberOfRentalsWithDifferentOffices() {
         int count = 0;
