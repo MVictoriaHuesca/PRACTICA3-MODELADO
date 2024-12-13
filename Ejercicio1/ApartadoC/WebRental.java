@@ -1,7 +1,7 @@
 import java.time.*;
 
 public class WebRental extends Rental{
-    private Integer deliveryTime;   // Este atributo puede estar a null, representa la hora a la que se devuelve el coche
+    private Integer deliveryTime;
 
     private RentalOffice deliveryOffice;
     

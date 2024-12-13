@@ -26,7 +26,7 @@ public class Rental {
         this.promotion = promotion;
     }
 
-    //------------- getters ----------------
+//-------------------- GETTERS --------------------------
     
     private LocalDateTime getStartDate() {
         return this.startDate;
@@ -52,8 +52,7 @@ public class Rental {
         return this.promotion;
     }
     
-    //------------- setters ----------------
-
+//-------------------- SETTERS --------------------------
 
     private void setStartDate(LocalDateTime startDate) {
         assert(startDate != null);
@@ -84,8 +83,11 @@ public class Rental {
         this.promotion = promotion;
     }
 
-    //------------- other methods ----------------
+//-------------------- OTHER METHODS --------------------------
     
+    /**
+     * Comprueba que un cliente no tenga alquileres solapados
+     */
     private boolean noAlquileresSolapados(Customer customer, LocalDateTime startDate) { // Comprueba que un cliente no tenga alquileres solapados
         boolean sol = true;
         List<Rental> allRentals = new ArrayList<>(customer.getRentalsOnSite());
@@ -98,12 +100,17 @@ public class Rental {
         return sol;
     }
     
-
+    /**
+     * Comprueba que la oficina asignada al coche es la misma que la de pickup
+     */
     private boolean noOficinasDistintas(Car car, RentalOffice pickUpOffice) { // Comprueba que la oficina asignada al coche es la misma que la de pickup
         assert(car != null && pickUpOffice != null);
         return car.getAssignedOffice().equals(pickUpOffice);
     }    
 
+    /**
+     * Proporciona el precio del alquiler del coche
+     */
     public double getPrice(){
         int days = (int) Duration.between(startDate, endDate).toDays();
         double basePrice = car.getModel().getpricePerDay() * days;

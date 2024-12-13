@@ -16,7 +16,7 @@ public class Car {
         this.assignedOffice = assignedOffice;        
         this.rentals = new LinkedList<Rental>();
         this.assignedOffice.getCars().add(this);
-        System.out.println("El coche se ha creado correctamente");
+        System.out.println("El coche con matrícula " + licensePlate + " se ha creado correctamente");
     }
 
 //-------------------- GETTERS --------------------------

@@ -15,7 +15,7 @@ public class Model{
         System.out.println("El modelo de coche" + name + " se ha creado correctamente");
     }
 
-    //-------------getters--------------
+//-------------------- GETTERS --------------------------
     
     private String getName(){
         return this.name;
@@ -29,8 +29,7 @@ public class Model{
         return this.cars;
     }
 
-
-    //------------- setters --------------
+//-------------------- SETTERS --------------------------
     
      private void setName(String name) {
         assert(name != null);

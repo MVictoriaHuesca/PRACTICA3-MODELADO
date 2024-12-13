@@ -18,7 +18,7 @@ public class Customer{
         System.out.println("El cliente " + name + " se ha registrado correctamente");
     }
 
-    //--------------- getters --------------------
+//-------------------- GETTERS --------------------------
     
     private String getDni(){
         return this.dni;
@@ -36,7 +36,7 @@ public class Customer{
         return this.webRentals;
     }
     
-    //--------------- setters ---------------------
+//-------------------- SETTERS --------------------------
     
     private void setName(String name) {
         assert(name != null);
@@ -58,7 +58,11 @@ public class Customer{
         this.webRentals = webRentals;
     }
 
-    
+//-------------------- OTHER METHODS --------------------------
+
+    /**
+     * Permite alquilar un coche en una oficina de alquiler
+     */
     public void rentCarOnSite(LocalDateTime startDate, LocalDateTime endDate, Car car,RentalOffice pickUpOffice, String comment){
         assert(startDate != null && endDate != null && car != null && pickUpOffice != null && comment != null);
         RentalOnSite rental = new RentalOnSite(startDate, endDate, car, this, pickUpOffice, comment);
@@ -68,6 +72,9 @@ public class Customer{
         System.out.println("Se ha añadido un nuevo alquiler en oficina. Total alquileres de este cliente: " + (rentalsOnSite.size() + webRentals.size()));
     }
 
+    /**
+     * Permite alquilar un coche a través de la web
+     */
     public void rentCarOnWeb(LocalDateTime startDate, LocalDateTime endDate, Car car,RentalOffice pickUpOffice, RentalOffice deliveryoffice){
         assert(startDate != null && endDate != null && car != null && pickUpOffice != null && deliveryoffice != null);
         WebRental rental = new WebRental(startDate, endDate, car, this, pickUpOffice, deliveryoffice);

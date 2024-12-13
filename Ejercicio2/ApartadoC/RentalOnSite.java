@@ -10,12 +10,14 @@ public class RentalOnSite extends Rental {
         this.comments = comments;
     }
 
-    //----------- getters ----------------
+//-------------------- GETTERS --------------------------
+
     private String getComments() {
         return this.comments;
     }
 
-    //----------- setters ----------------
+//-------------------- SETTERS --------------------------
+
     private void setComments(String comments) {
         assert(comments != null);
         this.comments = comments;

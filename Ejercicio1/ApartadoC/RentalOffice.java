@@ -18,6 +18,8 @@ public class RentalOffice {
         System.out.println("La oficina situada en " + address + " se ha creado correctamente");
     }
 
+//-------------------- GETTERS --------------------------
+
     private String getAddress() {
         return address;
     }
@@ -37,6 +39,8 @@ public class RentalOffice {
     protected List<WebRental> getWebRentals(){
         return webRentals;
     }
+
+//-------------------- SETTERS --------------------------
 
     private void setAddress(String address) {
         assert(address != null);
