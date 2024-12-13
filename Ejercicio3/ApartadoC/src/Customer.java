@@ -69,7 +69,7 @@ public class Customer{
         rentalsOnSite.add(rental);
         pickUpOffice.getRental().add(rental);
         car.getRental().add(rental);
-        System.out.println("Se ha añadido un nuevo alquiler en oficina. Total alquileres de este cliente: " + (rentalsOnSite.size() + webRentals.size()));
+        System.out.println(this.name + " ha añadido un nuevo alquiler en oficina. Total alquileres de este cliente: " + (rentalsOnSite.size() + webRentals.size()));
     }
 
     /**
@@ -82,6 +82,6 @@ public class Customer{
         deliveryoffice.getWebRentals().add(rental);
         webRentals.add(rental);
         car.getRental().add(rental);
-        System.out.println("Se ha añadido un nuevo alquiler por web. Total alquileres de este cliente: " + (rentalsOnSite.size() + webRentals.size()));
+        System.out.println(this.name + " ha añadido un nuevo alquiler por web. Total alquileres de este cliente: " + (rentalsOnSite.size() + webRentals.size()));
     }
 }
