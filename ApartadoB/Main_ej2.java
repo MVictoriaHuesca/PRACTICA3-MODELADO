@@ -24,7 +24,7 @@ public class Main_ej2 {
         Car coche2 = new Car("7856BPM", ferrari, oficina1);
 
         coche1.takeOutOfService(fecha6);
-        System.out.println("Alquileres en la oficina1: " + oficina1.getRental().toString());
+        System.out.println("Coches en la oficina1: " + oficina1.getCars());
     }
 }
 

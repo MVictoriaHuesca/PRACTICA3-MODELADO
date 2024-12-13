@@ -5,6 +5,7 @@ public class RentalOnSite extends Rental {
 
     public RentalOnSite(LocalDateTime startDate, LocalDateTime endDate, Car car, Customer customer, RentalOffice pickUpOffice, String comments){
         super(startDate, endDate, car, customer, pickUpOffice);
+        assert(comments != null);
         this.comments = comments;
     }
 
@@ -15,6 +16,7 @@ public class RentalOnSite extends Rental {
 
     //----------- setters ----------------
     private void setComments(String comments) {
+        assert(comments != null);
         this.comments = comments;
     }
 

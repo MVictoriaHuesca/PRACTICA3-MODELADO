@@ -10,8 +10,10 @@ public class Car {
     private CarState state;
 
     public Car(String licensePlate, Model model, RentalOffice assignedOffice) {
+        assert(licensePlate != null && model != null && assignedOffice != null);
         this.licensePlate = licensePlate;
         this.model = model;
+        model.getCars().add(this);
         this.assignedOffice = assignedOffice;        
         this.rentals = new LinkedList<Rental>();
         this.assignedOffice.getCars().add(this);
@@ -44,29 +46,35 @@ public class Car {
 //-------------------- SETTERS --------------------------
     
     private void setLicensePlate(String licensePlate) {
+        assert(licensePlate != null);
         this.licensePlate = licensePlate;
     }
 
     private void setModel(Model model) {
+        assert(model != null);
         this.model = model;
     }
 
     private void setAssignedOffice(RentalOffice assignedOffice) {
+        assert(assignedOffice != null);
         this.assignedOffice = assignedOffice;
     }
 
     private void setRentals(List<Rental> rentals){
+        assert(rentals != null);
         this.rentals = rentals;
     }
 
     private void setState(CarState state) {
+        assert(state != null);
         this.state = state;
     }
 
 //-------------------- OTHER METHODS --------------------------
 
     public void takeOutOfService(LocalDateTime backToServiceDate) {
-        if (this.getState() instanceof OutOfServiceState || this.getState() instanceof IsSubstitute) {
+        assert(backToServiceDate != null);
+        if (this.getState() instanceof OutOfServiceState || this.getState() instanceof IsSubstituteState) {
             System.out.println("El coche ya está fuera de servicio o es un coche sustituto");
         } else {
             this.setState(new OutOfServiceState(this, backToServiceDate));
@@ -75,7 +83,7 @@ public class Car {
             for(Car car : cars){
                 if(car.getModel().equals(this.getModel()) && car.getState() instanceof InServiceState && car != this){
                     substitute = car;
-                    substitute.setState(new IsSubstitute(substitute));
+                    substitute.setState(new IsSubstituteState(substitute));
                     break;
                 }
             }

@@ -7,6 +7,7 @@ public class Model{
     private List<Car> cars;
     
     public Model (String name, Integer pricePerDay) {
+        assert(name != null && pricePerDay != null);
         this.name = name;
         this.pricePerDay = pricePerDay;
         this.cars = new LinkedList<>();
@@ -23,7 +24,7 @@ public class Model{
         return this.pricePerDay;
     }
 
-    private List<Car> getCar(){
+    protected List<Car> getCars(){
         return this.cars;
     }
 
@@ -31,14 +32,17 @@ public class Model{
     //------------- setters --------------
     
      private void setName(String name) {
+        assert(name != null);
         this.name = name;
     }
 
     private void setgetpricePerDay(Integer pricePerDay){
+        assert(pricePerDay != null);
         this.pricePerDay = pricePerDay;
     }
 
     private void setCars(List<Car> cars){
+        assert(cars != null);
         this.cars = cars;
     }
 

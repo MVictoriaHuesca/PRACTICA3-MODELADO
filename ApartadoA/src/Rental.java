@@ -11,6 +11,7 @@ public class Rental {
     private RentalOffice pickUpOffice;
 
     public Rental(LocalDateTime sDate, LocalDateTime eDate, Car c, Customer customer, RentalOffice pickUpOffice) {
+        assert(sDate != null && eDate != null && car != null && customer != null && pickUpOffice != null); 
         assert(noAlquileresSolapados(customer, sDate) && sDate.isBefore(eDate) && noOficinasDistintas(car, pickUpOffice)); // Se comprueban las restricciones de integridad 1, 2 y 3
         this.car = c;
         this.startDate = sDate;
@@ -19,7 +20,7 @@ public class Rental {
         this.pickUpOffice = pickUpOffice;
     }
 
-//-------------------- GETTERS --------------------------
+    //------------- getters ----------------
     
     private LocalDateTime getStartDate() {
         return this.startDate;
@@ -41,34 +42,37 @@ public class Rental {
         return this.pickUpOffice;
     }
     
-//-------------------- SETTERS --------------------------
+    //------------- setters ----------------
+
 
     private void setStartDate(LocalDateTime startDate) {
+        assert(startDate != null);
         this.startDate = startDate;
     }
 
     private void setEndDate(LocalDateTime endDate) {
+        assert(endDate != null);
         this.endDate = endDate;
     }
 
     private void setCar(Car car) {
+        assert(car != null);
         this.car = car;
     }
 
     private void setCustomer(Customer customer) {
+        assert(customer != null);
         this.customer = customer;
     }
 
     private void setpickUpOffice(RentalOffice pickUpOffice) {
+        assert(pickUpOffice != null);
         this.pickUpOffice = pickUpOffice;
     }
 
-//-------------------- OTHER METHODS --------------------------
+    //------------- other methods ----------------
     
-    /**
-     * Comprueba que un cliente no tenga alquileres solapados
-     */
-    private boolean noAlquileresSolapados(Customer customer, LocalDateTime startDate) { 
+    private boolean noAlquileresSolapados(Customer customer, LocalDateTime startDate) { // Comprueba que un cliente no tenga alquileres solapados
         boolean sol = true;
         List<Rental> allRentals = new ArrayList<>(customer.getRentalsOnSite());
         allRentals.addAll(customer.getWebRentals());
@@ -80,10 +84,9 @@ public class Rental {
         return sol;
     }
     
-    /**
-     * Comprueba que la oficina asignada al coche es la misma que la de pickup
-     */
-    private boolean noOficinasDistintas(Car car, RentalOffice pickUpOffice) {  
+
+    private boolean noOficinasDistintas(Car car, RentalOffice pickUpOffice) { // Comprueba que la oficina asignada al coche es la misma que la de pickup
+        assert(car != null && pickUpOffice != null);
         return car.getAssignedOffice().equals(pickUpOffice);
     }    
 }

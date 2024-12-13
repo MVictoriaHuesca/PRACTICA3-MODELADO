@@ -7,6 +7,7 @@ public class WebRentalIterator implements Iterator<WebRental> {
     private int position;
 
     public WebRentalIterator(List<WebRental> webRentals) {
+        assert(webRentals != null);
         this.webRentals = webRentals;
         this.position = 0;
     }

@@ -9,6 +9,7 @@ public class RentalOffice {
     private List<WebRental> webRentals;
 
     public RentalOffice(String address, Integer feeForDelivery) {
+        assert(address != null && feeForDelivery != null);
         this.address = address;
         this.feeForDelivery = feeForDelivery;
         this.rentals = new LinkedList<Rental>();
@@ -16,8 +17,6 @@ public class RentalOffice {
         this.webRentals = new LinkedList<WebRental>();
         System.out.println("La oficina situada en " + address + " se ha creado correctamente");
     }
-
-//-------------------- GETTERS --------------------------
 
     private String getAddress() {
         return address;
@@ -27,37 +26,40 @@ public class RentalOffice {
         return feeForDelivery;
     }
 
-    private List<Rental> getRental(){
+    protected List<Rental> getRental(){
         return rentals;
     }
 
-    private List<Car> getCars(){
+    protected List<Car> getCars(){
         return cars;
     }
 
-    private List<WebRental> getWebRentals(){
+    protected List<WebRental> getWebRentals(){
         return webRentals;
     }
 
-//-------------------- SETTERS --------------------------
-
     private void setAddress(String address) {
+        assert(address != null);
         this.address = address;
     }
 
     private void setfeeForDelivery(Integer feeForDelivery) {
+        assert(feeForDelivery != null);
         this.feeForDelivery = feeForDelivery;
     }
 
     private void setRentals(List<Rental> rentals){
+        assert(rentals != null);
         this.rentals = rentals;
     }
 
     private void setCars(List<Car> cars){
+        assert(cars != null);
         this.cars = cars;
     }
 
     private void setWebRentals(List<WebRental> webRentals){
+        assert(webRentals != null);
         this.webRentals = webRentals;
     }
 

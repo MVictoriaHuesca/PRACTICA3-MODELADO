@@ -7,6 +7,7 @@ public class WebRental extends Rental{
     
     public WebRental(LocalDateTime startDate, LocalDateTime endDate, Car car, Customer customer, RentalOffice pickUpOffice, RentalOffice deliveryOffice) {
         super(startDate, endDate, car, customer, pickUpOffice);
+        assert(deliveryOffice != null);
         assert(comprobarHoraOficinasDiferentes(pickUpOffice, deliveryOffice, endDate));
         this.deliveryTime = 0;
         this.deliveryOffice = deliveryOffice;
@@ -25,10 +26,12 @@ public class WebRental extends Rental{
 //-------------------- SETTERS --------------------------
 
     private void setDeliveryTime(Integer deliveryTime){
+        assert(deliveryTime != null);
         this.deliveryTime = deliveryTime;
     }
 
     private void setRentalOffice(RentalOffice deliveryOffice){
+        assert(deliveryOffice != null);
         this.deliveryOffice = deliveryOffice;
     }
 
