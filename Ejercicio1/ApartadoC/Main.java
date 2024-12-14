@@ -24,7 +24,6 @@ public class Main {
         Customer1.rentCarOnWeb(fecha3, fecha4, coche2, oficina1, oficina2);
         Customer1.rentCarOnWeb(fecha5, fecha6, coche2, oficina1, oficina1);
 
-        System.out.println("Número de alquileres con diferentes oficinas de " + Customer1.getName() + ": " + Customer1.numberOfRentalsWithDifferentOffices());       
-        
+        System.out.println("Número de alquileres con diferentes oficinas de " + Customer1.getName() + ": " + Customer1.numberOfRentalsWithDifferentOffices());     
     }
 }

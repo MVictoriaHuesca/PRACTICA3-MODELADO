@@ -66,6 +66,7 @@ public class Customer implements ICustomer<WebRental> {
         RentalOnSite rental = new RentalOnSite(startDate, endDate, car, this, pickUpOffice, comment);
         rentalsOnSite.add(rental);
         car.getRental().add(rental);
+        pickUpOffice.getRental().add(rental);
         System.out.println(this.name + " ha añadido un nuevo alquiler en oficina. Total alquileres de este cliente: " + (rentalsOnSite.size() + webRentals.size()));
     }
     
@@ -77,6 +78,8 @@ public class Customer implements ICustomer<WebRental> {
         WebRental rental = new WebRental(startDate, endDate, car, this, pickUpOffice, deliveryoffice);
         webRentals.add(rental);
         car.getRental().add(rental);
+        pickUpOffice.getRental().add(rental);
+        deliveryoffice.getWebRentals().add(rental);
         System.out.println(this.name + " ha añadido un nuevo alquiler por web. Total alquileres de este cliente: " + (rentalsOnSite.size() + webRentals.size()));
     }
 
