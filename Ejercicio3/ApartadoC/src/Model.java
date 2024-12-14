@@ -12,7 +12,7 @@ public class Model{
         this.name = name;
         this.pricePerDay = pricePerDay;
         this.cars = new LinkedList<>();
-        System.out.println("El modelo de coche" + name + " se ha creado correctamente");
+        System.out.println("El modelo de coche " + name + " se ha creado correctamente");
     }
 
 //-------------------- GETTERS --------------------------
@@ -31,12 +31,12 @@ public class Model{
 
 //-------------------- SETTERS --------------------------
     
-     private void setName(String name) {
+    private void setName(String name) {
         assert(name != null);
         this.name = name;
     }
 
-    private void setgetpricePerDay(Integer pricePerDay){
+    private void setpricePerDay(Integer pricePerDay){
         assert(pricePerDay != null);
         this.pricePerDay = pricePerDay;
     }

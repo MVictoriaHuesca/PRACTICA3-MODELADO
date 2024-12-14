@@ -74,7 +74,7 @@ public class Car {
 //-------------------- OTHER METHODS --------------------------
 
     /**
-     * Esta funcionalidad pondrá el coche fuera de
+        Esta funcionalidad pondrá el coche fuera de
         servicio y registrará la fecha hasta la cual estará fuera de servicio y, si hay, buscará y registrará también un coche
         sustituto
      */

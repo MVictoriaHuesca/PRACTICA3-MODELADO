@@ -35,7 +35,7 @@ public class Model{
         this.name = name;
     }
 
-    private void setgetpricePerDay(Integer pricePerDay){
+    private void setpricePerDay(Integer pricePerDay){
         assert(pricePerDay != null);
         this.pricePerDay = pricePerDay;
     }
