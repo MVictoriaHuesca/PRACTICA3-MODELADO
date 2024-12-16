@@ -77,8 +77,8 @@ public class Rental {
      */
     private boolean noAlquileresSolapados(Customer customer, LocalDateTime startDate) { 
         boolean sol = true;
-        List<Rental> allRentals = new ArrayList<>(customer.getRentalsOnSite());
-        allRentals.addAll(customer.getWebRentals());
+        List<Rental> allRentals = new ArrayList<>(customer.getRentalsOnSite()); // No se puede crear un arraylist de un tipo enumerado
+        allRentals.addAll(customer.getWebRentals()); // addAll no es aplicable para un tipo Enumerado
         for(Rental rental: allRentals) {
             if(rental.getEndDate().isAfter(startDate)){
                 sol = false;

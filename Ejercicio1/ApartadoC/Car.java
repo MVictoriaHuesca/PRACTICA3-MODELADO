@@ -12,10 +12,10 @@ public class Car {
         assert(licensePlate != null && model != null && assignedOffice != null);
         this.licensePlate = licensePlate;
         this.model = model;
-        model.getCars().add(this);
+        model.addCar(this);
         this.assignedOffice = assignedOffice;        
         this.rentals = new LinkedList<Rental>();
-        this.assignedOffice.getCars().add(this);
+        this.assignedOffice.addCar(this);
         System.out.println("El coche con matrícula " + licensePlate + " se ha creado correctamente");
     }
 
@@ -25,8 +25,8 @@ public class Car {
         return licensePlate;
     }
 
-    protected List<Rental> getRental(){
-        return rentals;
+    protected Enumeration<Rental> getRental(){
+        return Collections.enumeration(rentals);
     }
 
     private Model getModel() {
@@ -54,8 +54,13 @@ public class Car {
         this.assignedOffice = assignedOffice;
     }
 
-    private void setRentals(List<Rental> rentals){
-        assert(rentals != null);
-        this.rentals = rentals;
+    protected void addRental(Rental rental){
+        assert(rental != null);
+        this.rentals.add(rental);
+    }
+
+    private void removeRental(Rental rental){
+        assert(rental != null);
+        this.rentals.remove(rental);
     }
 }
