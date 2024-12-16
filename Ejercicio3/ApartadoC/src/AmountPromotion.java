@@ -1,4 +1,3 @@
-package Ejercicio3.ApartadoC;
 public class AmountPromotion implements IPromotionStrategy {
     private int amount;
 

@@ -25,14 +25,13 @@ public class Model{
         return this.pricePerDay;
     }
 
-    protected List<Car> getCars(){
-        return this.cars;
+    protected Enumeration<Car> getCars(){
+        return Collections.enumeration(this.cars);
     }
-
 
 //-------------------- SETTERS --------------------------
     
-     private void setName(String name) {
+    private void setName(String name) {
         assert(name != null);
         this.name = name;
     }
@@ -42,9 +41,14 @@ public class Model{
         this.pricePerDay = pricePerDay;
     }
 
-    private void setCars(List<Car> cars){
-        assert(cars != null);
-        this.cars = cars;
+
+    protected void addCar(Car car){
+        assert(cars != null && !cars.contains(car));
+        this.cars.add(car);
     }
 
+    protected void removeCar(Car car){
+        assert(cars != null && cars.contains(car));
+        this.cars.remove(car);
+    }
 }

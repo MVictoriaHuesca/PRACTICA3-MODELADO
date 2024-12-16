@@ -5,14 +5,13 @@ public class Customer implements ICustomer<WebRental> {
     private String dni;
     private String name;
     
-    private List<RentalOnSite> rentalsOnSite;
-    private List<WebRental> webRentals;
+    private List<Rental> rentals;
 
     public Customer (String dni, String name) {
+        assert(dni != null && name != null);
         this.dni = dni;
         this.name = name;
-        this.rentalsOnSite = new LinkedList<>();
-        this.webRentals = new LinkedList<>();
+        this.rentals = new LinkedList<>();
         System.out.println("El cliente " + name + " se ha registrado correctamente");
     }
 
@@ -26,12 +25,18 @@ public class Customer implements ICustomer<WebRental> {
         return this.name;
     }
     
-    private Enumeration<RentalOnSite> getRentalsOnSite() {
-        return Collections.enumeration(this.rentalsOnSite);
+    protected Enumeration<Rental> getRentals() {
+        return Collections.enumeration(this.rentals);
     }
 
-    protected Enumeration<WebRental> getWebRentals() {
-        return Collections.enumeration(this.webRentals);
+    private List<WebRental> getWebRentals(){
+        List<WebRental> webRentals = new LinkedList<>();
+        for(Rental rental : rentals){
+            if(rental instanceof WebRental){
+                webRentals.add((WebRental) rental);
+            }
+        }
+        return webRentals;
     }
     
 //-------------------- SETTERS --------------------------
@@ -46,25 +51,16 @@ public class Customer implements ICustomer<WebRental> {
         this.dni = dni;
     }
     
-    protected void addRentalOnSite (RentalOnSite rental) {
+    protected void addRental (Rental rental) {
         assert(rental != null);
-        this.rentalsOnSite.add(rental);
+        this.rentals.add(rental);
     }
 
-    protected void removeRentalOnSite (RentalOnSite rental) {
+    protected void removeRental (Rental rental) {
         assert(rental != null);
-        this.rentalsOnSite.remove(rental);
+        this.rentals.remove(rental);
     }
-    
-    protected void addWebRental (WebRental rental) {
-        assert(rental != null);
-        this.webRentals.add(rental);
-    }
-
-    protected void removeWebRental (WebRental rental) {
-        assert(rental != null);
-        this.webRentals.remove(rental);
-    }
+        
 
 //-------------------- OTHER METHODS --------------------------
 
@@ -74,10 +70,7 @@ public class Customer implements ICustomer<WebRental> {
     public void rentCarOnSite(LocalDateTime startDate, LocalDateTime endDate, Car car,RentalOffice pickUpOffice, String comment){
         assert(startDate != null && endDate != null && car != null && pickUpOffice != null && comment != null);
         RentalOnSite rental = new RentalOnSite(startDate, endDate, car, this, pickUpOffice, comment);
-        rentalsOnSite.add(rental);
-        car.addRental(rental);
-        pickUpOffice.addRental(rental);
-        System.out.println(this.name + " ha añadido un nuevo alquiler en oficina. Total alquileres de este cliente: " + (rentalsOnSite.size() + webRentals.size()));
+        System.out.println(this.name + " ha añadido un nuevo alquiler en oficina. Total alquileres de este cliente: " + (this.rentals.size()));
     }
     
     /**
@@ -86,11 +79,7 @@ public class Customer implements ICustomer<WebRental> {
     public void rentCarOnWeb(LocalDateTime startDate, LocalDateTime endDate, Car car,RentalOffice pickUpOffice, RentalOffice deliveryoffice){
         assert(startDate != null && endDate != null && car != null && pickUpOffice != null && deliveryoffice != null);
         WebRental rental = new WebRental(startDate, endDate, car, this, pickUpOffice, deliveryoffice);
-        webRentals.add(rental);
-        car.addRental(rental);
-        pickUpOffice.addRental(rental);
-        deliveryoffice.addWebRental(rental);
-        System.out.println(this.name + " ha añadido un nuevo alquiler por web. Total alquileres de este cliente: " + (rentalsOnSite.size() + webRentals.size()));
+        System.out.println(this.name + " ha añadido un nuevo alquiler por web. Total alquileres de este cliente: " + (this.rentals.size()));
     }
 
     /**
@@ -110,6 +99,6 @@ public class Customer implements ICustomer<WebRental> {
 
     @Override
     public Iterator<WebRental> createWebRentalIterator() {
-        return new WebRentalIterator(webRentals);
+        return new WebRentalIterator(getWebRentals());
     }
 }

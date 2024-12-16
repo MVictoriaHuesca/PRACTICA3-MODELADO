@@ -1,4 +1,3 @@
-package Ejercicio3.ApartadoC;
 import java.util.*;
 
 public class Model{
@@ -25,8 +24,8 @@ public class Model{
         return this.pricePerDay;
     }
 
-    protected List<Car> getCars(){
-        return this.cars;
+    protected Enumeration<Car> getCars(){
+        return Collections.enumeration(this.cars);
     }
 
 //-------------------- SETTERS --------------------------
@@ -36,14 +35,18 @@ public class Model{
         this.name = name;
     }
 
-    private void setpricePerDay(Integer pricePerDay){
+    private void setpricePerDay(Double pricePerDay){
         assert(pricePerDay != null);
         this.pricePerDay = pricePerDay;
     }
 
-    private void setCars(List<Car> cars){
-        assert(cars != null);
-        this.cars = cars;
+    protected void addCar(Car car){
+        assert(cars != null && !cars.contains(car));
+        this.cars.add(car);
     }
 
+    protected void removeCar(Car car){
+        assert(cars != null && cars.contains(car));
+        this.cars.remove(car);
+    }
 }

@@ -1,4 +1,3 @@
-package Ejercicio3.ApartadoC;
 import java.time.*;
 
 public class RentalOnSite extends Rental {

@@ -29,18 +29,17 @@ public class RentalOffice {
         return feeForDelivery;
     }
 
-    protected List<Rental> getRental(){
-        return rentals;
+    protected Enumeration<Rental> getRental(){
+        return Collections.enumeration(rentals);
     }
 
-    protected List<Car> getCars(){
-        return cars;
+    protected Enumeration<Car> getCars(){
+        return Collections.enumeration(cars);
     }
 
-    protected List<WebRental> getWebRentals(){
-        return webRentals;
+    protected Enumeration<WebRental> getWebRentals(){
+        return Collections.enumeration(webRentals);
     }
-
 //-------------------- SETTERS --------------------------
 
     private void setAddress(String address) {
@@ -53,19 +52,34 @@ public class RentalOffice {
         this.feeForDelivery = feeForDelivery;
     }
 
-    private void setRentals(List<Rental> rentals){
+    protected void addRental(Rental rental){
         assert(rentals != null);
-        this.rentals = rentals;
+        this.rentals.add(rental);
     }
 
-    private void setCars(List<Car> cars){
+    protected void removeRental(Rental rental){
+        assert(rentals != null);
+        this.rentals.remove(rental);
+    }
+
+    protected void addCar(Car car){
         assert(cars != null);
-        this.cars = cars;
+        this.cars.add(car);
     }
 
-    private void setWebRentals(List<WebRental> webRentals){
+    protected void removeCar(Car car){
+        assert(cars != null);
+        this.cars.remove(car);
+    }
+
+    protected void addWebRental(WebRental webRentals){
         assert(webRentals != null);
-        this.webRentals = webRentals;
+        this.webRentals.add(webRentals);
+    }
+
+    protected void removeWebRental(WebRental webRentals){
+        assert(webRentals != null);
+        this.webRentals.remove(webRentals);
     }
 
 }

@@ -1,8 +1,7 @@
-package Ejercicio3.ApartadoC;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Enumeration;
 import java.time.Duration;
 
 public class Main {
@@ -33,28 +32,48 @@ public class Main {
 
         // CASO 1: alquiler de coche con descuento porcentaje
         Customer1.rentCarOnSite(fecha1, fecha2, coche1, oficina1, percentagePromotion, "Alquiler de coche con descuento por porcentaje");
-        double price1 = Customer1.getRentalsOnSite().get(Customer1.getRentalsOnSite().size()-1).getPrice();
+        Enumeration<Rental> listaRentals1 = Customer1.getRentals();
+        Rental ultimoRental1 = null;
+        while (listaRentals1.hasMoreElements()){
+            ultimoRental1 = listaRentals1.nextElement();
+        }
+        double price1 = ultimoRental1.getPrice();
         System.out.println("El precio del alquiler con descuento por porcentaje es: " + price1 + "\n");
 
 
         // CASO 2: alquiler de coche con descuento cantidad
         Customer2.rentCarOnSite(fecha1, fecha2, coche2, oficina1, amountPromotion, "Alquiler de coche con descuento por cantidad");
-        double price2 = Customer2.getRentalsOnSite().get(Customer2.getRentalsOnSite().size()-1).getPrice();
+        Enumeration<Rental> listaRentals2 = Customer2.getRentals();
+        Rental ultimoRental2 = null;
+        while (listaRentals2.hasMoreElements()){
+            ultimoRental2 = listaRentals2.nextElement();
+        }
+        double price2 = ultimoRental2.getPrice();
         System.out.println("El precio del alquiler con descuento por cantidad es: " + price2 + "\n");
         
         
         // CASO 3: alquiler de coche sin descuento
         Customer3.rentCarOnSite(fecha1, fecha2, coche3, oficina1, null, "Alquiler de coche sin descuento");
-        double price3 = Customer3.getRentalsOnSite().get(Customer3.getRentalsOnSite().size()-1).getPrice();
+        Enumeration<Rental> listaRentals3 = Customer3.getRentals();
+        Rental ultimoRental3 = null;
+        while (listaRentals3.hasMoreElements()){
+            ultimoRental3 = listaRentals3.nextElement();
+        }
+        double price3 = ultimoRental3.getPrice();
         System.out.println("El precio del alquiler sin descuento es: " + price3 + "\n");
 
 
         //CASO 4: aplicar primero una estrategia de descuento y después cambiarla
         Customer4.rentCarOnSite(fecha1, fecha2, coche4, oficina2, amountPromotion, "Alquiler de coche con descuento por cantidad");
-        double price4 = Customer4.getRentalsOnSite().get(Customer4.getRentalsOnSite().size()-1).getPrice();
-        System.out.println("El precio del alquiler con descuento por cantidad es: " + price4);
-        Customer4.getRentalsOnSite().get(Customer4.getRentalsOnSite().size()-1).setPromotion(percentagePromotion);
-        double price4changed = Customer4.getRentalsOnSite().get(Customer4.getRentalsOnSite().size()-1).getPrice();
+        Enumeration<Rental> listaRentals4 = Customer4.getRentals();
+        Rental ultimoRental4 = null;
+        while (listaRentals4.hasMoreElements()){
+            ultimoRental4 = listaRentals4.nextElement();
+        }
+        double price4 = ultimoRental4.getPrice();
+        System.out.println("El precio del alquiler con descuento por cantidad es: " + price4);        
+        ultimoRental4.setPromotion(percentagePromotion);
+        double price4changed = ultimoRental4.getPrice();
         System.out.println("El precio del alquiler con descuento por porcentaje es: " + price4changed);
     }
 }

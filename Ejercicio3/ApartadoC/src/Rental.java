@@ -1,9 +1,8 @@
-package Ejercicio3.ApartadoC;
-
 import java.time.*;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
-import java.time.Duration;
+
 
 public class Rental {
     private LocalDateTime startDate;
@@ -16,18 +15,22 @@ public class Rental {
 
     public Rental(LocalDateTime sDate, LocalDateTime eDate, Car c, Customer customer, RentalOffice pickUpOffice, IPromotionStrategy promotion) {
         // no hace falta comprobar que promotion no sea null ya que podría no aplicarse ninguna promoción
-        assert(sDate != null && eDate != null && car != null && customer != null && pickUpOffice != null); 
+        assert(sDate != null && eDate != null && car != null && customer != null && pickUpOffice != null);
         assert(noAlquileresSolapados(customer, sDate) && sDate.isBefore(eDate) && noOficinasDistintas(car, pickUpOffice)); // Se comprueban las restricciones de integridad 1, 2 y 3
         this.car = c;
+        c.addRental(this);
         this.startDate = sDate;
         this.endDate = eDate;
         this.customer = customer;
+        customer.addRental(this);
         this.pickUpOffice = pickUpOffice;
+        pickUpOffice.addRental(this);
         this.promotion = promotion;
     }
 
+
 //-------------------- GETTERS --------------------------
-    
+   
     private LocalDateTime getStartDate() {
         return this.startDate;
     }
@@ -35,7 +38,7 @@ public class Rental {
     private LocalDateTime getEndDate() {
         return this.endDate;
     }
-    
+   
     private Car getCar() {
         return this.car;
     }
@@ -51,8 +54,9 @@ public class Rental {
     private IPromotionStrategy getPromotion() {
         return this.promotion;
     }
-    
+   
 //-------------------- SETTERS --------------------------
+
 
     private void setStartDate(LocalDateTime startDate) {
         assert(startDate != null);
@@ -66,32 +70,49 @@ public class Rental {
 
     private void setCar(Car car) {
         assert(car != null);
+        if(this.car != null) {
+            this.car.removeRental(this);
+        }
         this.car = car;
+        car.addRental(this);
     }
 
     private void setCustomer(Customer customer) {
         assert(customer != null);
+        if(this.customer != null) {
+            this.customer.removeRental(this);
+        }
         this.customer = customer;
+        customer.addRental(this);        
     }
 
     private void setpickUpOffice(RentalOffice pickUpOffice) {
         assert(pickUpOffice != null);
+        if(this.pickUpOffice != null) {
+            this.pickUpOffice.removeRental(this);
+        }
         this.pickUpOffice = pickUpOffice;
+        pickUpOffice.addRental(this);
     }
 
     protected void setPromotion(IPromotionStrategy promotion) {
         this.promotion = promotion;
     }
 
+
 //-------------------- OTHER METHODS --------------------------
-    
+   
     /**
      * Comprueba que un cliente no tenga alquileres solapados
      */
-    private boolean noAlquileresSolapados(Customer customer, LocalDateTime startDate) { // Comprueba que un cliente no tenga alquileres solapados
+    private boolean noAlquileresSolapados(Customer customer, LocalDateTime startDate) { // REVISAR
         boolean sol = true;
-        List<Rental> allRentals = new ArrayList<>(customer.getRentalsOnSite());
-        allRentals.addAll(customer.getWebRentals());
+        List<Rental> allRentals = new ArrayList<>(); 
+        Enumeration<Rental> listaRentals = customer.getRentals();
+        //añadir todos los rentals del enumeration en la lista 
+        while (listaRentals.hasMoreElements()) {
+            allRentals.add(listaRentals.nextElement());
+        }        
         for(Rental rental: allRentals) {
             if(rental.getEndDate().isAfter(startDate)){
                 sol = false;
@@ -99,19 +120,20 @@ public class Rental {
         }
         return sol;
     }
-    
+   
     /**
      * Comprueba que la oficina asignada al coche es la misma que la de pickup
      */
-    private boolean noOficinasDistintas(Car car, RentalOffice pickUpOffice) { // Comprueba que la oficina asignada al coche es la misma que la de pickup
+    private boolean noOficinasDistintas(Car car, RentalOffice pickUpOffice) {
         assert(car != null && pickUpOffice != null);
         return car.getAssignedOffice().equals(pickUpOffice);
     }    
 
+
     /**
      * Proporciona el precio del alquiler del coche
      */
-    public double getPrice(){
+    protected double getPrice(){
         int days = (int) Duration.between(startDate, endDate).toDays();
         double basePrice = car.getModel().getpricePerDay() * days;
         if (promotion != null) {
@@ -120,5 +142,6 @@ public class Rental {
         return basePrice;
     }
 }
+
 
 

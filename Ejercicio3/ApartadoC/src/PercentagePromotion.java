@@ -1,4 +1,3 @@
-package Ejercicio3.ApartadoC;
 public class PercentagePromotion implements IPromotionStrategy {
     private double percentage;
 

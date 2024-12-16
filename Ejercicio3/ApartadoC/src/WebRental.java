@@ -1,8 +1,7 @@
-package Ejercicio3.ApartadoC;
 import java.time.*;
 
 public class WebRental extends Rental{
-    private Integer deliveryTime;   // 0..1 (cuando sea 0 Integer será null)
+    private Integer deliveryTime;   
 
     private RentalOffice deliveryOffice;
     
@@ -11,6 +10,7 @@ public class WebRental extends Rental{
         assert(deliveryOffice != null && comprobarHoraOficinasDiferentes(pickUpOffice, deliveryOffice, endDate));
         this.deliveryTime = 0;
         this.deliveryOffice = deliveryOffice;
+        deliveryOffice.addWebRental(this);
     }
 
 //-------------------- GETTERS --------------------------
@@ -30,9 +30,13 @@ public class WebRental extends Rental{
         this.deliveryTime = deliveryTime;
     }
 
-    private void setRentalOffice(RentalOffice deliveryOffice){
+    private void setDeliveryOffice(RentalOffice deliveryOffice){
         assert(deliveryOffice != null);
+        if(this.deliveryOffice != null) {
+            this.deliveryOffice.removeWebRental(this);
+        }
         this.deliveryOffice = deliveryOffice;
+        deliveryOffice.addRental(this);
     }
 
 //-------------------- OTHER METHODS --------------------------

@@ -1,5 +1,3 @@
-package Ejercicio3.ApartadoC;
-import java.time.*;
 import java.util.*;
 
 public class Car {
@@ -13,10 +11,10 @@ public class Car {
         assert(licensePlate != null && model != null && assignedOffice != null);
         this.licensePlate = licensePlate;
         this.model = model;
-        model.getCars().add(this);
+        model.addCar(this);
         this.assignedOffice = assignedOffice;        
         this.rentals = new LinkedList<Rental>();
-        this.assignedOffice.getCars().add(this);
+        this.assignedOffice.addCar(this);
         System.out.println("El coche con matrícula " + licensePlate + " se ha creado correctamente");
     }
 
@@ -26,14 +24,13 @@ public class Car {
         return licensePlate;
     }
 
-    protected List<Rental> getRental(){
-        return rentals;
+    protected Enumeration<Rental> getRentals(){
+        return Collections.enumeration(rentals);
     }
 
     protected Model getModel() {
         return model;
     }
-
     
     protected RentalOffice getAssignedOffice() { //es protegido porque accedemos a él en otra clase
         return assignedOffice;
@@ -48,16 +45,29 @@ public class Car {
 
     private void setModel(Model model) {
         assert(model != null);
+        if(this.model != null) {
+            this.model.removeCar(this);
+        }
         this.model = model;
+        model.addCar(this);
     }
 
     private void setAssignedOffice(RentalOffice assignedOffice) {
         assert(assignedOffice != null);
+        if(this.assignedOffice != null) {
+            this.assignedOffice.removeCar(this);
+        }
         this.assignedOffice = assignedOffice;
+        assignedOffice.addCar(this);
     }
 
-    private void setRentals(List<Rental> rentals){
-        assert(rentals != null);
-        this.rentals = rentals;
+    protected void addRental(Rental rental){
+        assert(rental != null);
+        this.rentals.add(rental);
+    }
+
+    protected void removeRental(Rental rental){
+        assert(rental != null);
+        this.rentals.remove(rental);
     }
 }

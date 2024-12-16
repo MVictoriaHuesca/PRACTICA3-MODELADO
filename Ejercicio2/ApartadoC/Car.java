@@ -7,17 +7,17 @@ public class Car {
     
     private Model model;
     private RentalOffice assignedOffice;
-    private List<Rental> rentals;
+    private List<Rental> rentals;    
     private CarState state;
 
     public Car(String licensePlate, Model model, RentalOffice assignedOffice) {
         assert(licensePlate != null && model != null && assignedOffice != null);
         this.licensePlate = licensePlate;
         this.model = model;
-        model.getCars().add(this);
+        model.addCar(this);
         this.assignedOffice = assignedOffice;        
         this.rentals = new LinkedList<Rental>();
-        this.assignedOffice.getCars().add(this);
+        this.assignedOffice.addCar(this);
         this.state = new InServiceState(this);
         System.out.println("El coche con matrícula " + licensePlate + " se ha creado correctamente");
     }
@@ -28,18 +28,18 @@ public class Car {
         return licensePlate;
     }
 
-    protected List<Rental> getRental(){
-        return rentals;
+    protected Enumeration<Rental> getRentals(){
+        return Collections.enumeration(rentals);
     }
 
     private Model getModel() {
         return model;
     }
-
+    
     protected CarState getState() {
         return state;
     }
-    
+
     protected RentalOffice getAssignedOffice() { //es protegido porque accedemos a él en otra clase
         return assignedOffice;
     }
@@ -53,17 +53,30 @@ public class Car {
 
     private void setModel(Model model) {
         assert(model != null);
+        if(this.model != null) {
+            this.model.removeCar(this);
+        }
         this.model = model;
+        model.addCar(this);
     }
 
     private void setAssignedOffice(RentalOffice assignedOffice) {
         assert(assignedOffice != null);
+        if(this.assignedOffice != null) {
+            this.assignedOffice.removeCar(this);
+        }
         this.assignedOffice = assignedOffice;
+        assignedOffice.addCar(this);
     }
 
-    private void setRentals(List<Rental> rentals){
-        assert(rentals != null);
-        this.rentals = rentals;
+    protected void addRental(Rental rental){
+        assert(rental != null);
+        this.rentals.add(rental);
+    }
+
+    protected void removeRental(Rental rental){
+        assert(rental != null);
+        this.rentals.remove(rental);
     }
 
     private void setState(CarState state) {
@@ -84,7 +97,11 @@ public class Car {
             System.out.println("El coche ya está fuera de servicio o es un coche sustituto");
         } else {
             this.setState(new OutOfServiceState(this, backToServiceDate));
-            List<Car> cars = this.assignedOffice.getCars();
+            Enumeration<Car> listaCochesOficina = this.assignedOffice.getCars();
+            List<Car> cars = new ArrayList<>();
+            while(listaCochesOficina.hasMoreElements()){
+                cars.add(listaCochesOficina.nextElement());
+            }
             Car substitute = null;
             for(Car car : cars){
                 if(car.getModel().equals(this.getModel()) && car.getState() instanceof InServiceState && car != this){

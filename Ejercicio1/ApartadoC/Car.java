@@ -1,4 +1,3 @@
-import java.time.*;
 import java.util.*;
 
 public class Car {
@@ -25,7 +24,7 @@ public class Car {
         return licensePlate;
     }
 
-    protected Enumeration<Rental> getRental(){
+    protected Enumeration<Rental> getRentals(){
         return Collections.enumeration(rentals);
     }
 
@@ -46,12 +45,20 @@ public class Car {
 
     private void setModel(Model model) {
         assert(model != null);
+        if(this.model != null) {
+            this.model.removeCar(this);
+        }
         this.model = model;
+        model.addCar(this);
     }
 
     private void setAssignedOffice(RentalOffice assignedOffice) {
         assert(assignedOffice != null);
+        if(this.assignedOffice != null) {
+            this.assignedOffice.removeCar(this);
+        }
         this.assignedOffice = assignedOffice;
+        assignedOffice.addCar(this);
     }
 
     protected void addRental(Rental rental){
@@ -59,7 +66,7 @@ public class Car {
         this.rentals.add(rental);
     }
 
-    private void removeRental(Rental rental){
+    protected void removeRental(Rental rental){
         assert(rental != null);
         this.rentals.remove(rental);
     }

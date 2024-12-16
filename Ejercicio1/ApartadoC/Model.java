@@ -11,7 +11,7 @@ public class Model{
         this.name = name;
         this.pricePerDay = pricePerDay;
         this.cars = new LinkedList<>();
-        System.out.println("El modelo de coche" + name + " se ha creado correctamente");
+        System.out.println("El modelo de coche " + name + " se ha creado correctamente");
     }
 
 //-------------------- GETTERS --------------------------
@@ -30,7 +30,7 @@ public class Model{
 
 //-------------------- SETTERS --------------------------
     
-     private void setName(String name) {
+    private void setName(String name) {
         assert(name != null);
         this.name = name;
     }
@@ -41,12 +41,12 @@ public class Model{
     }
 
     protected void addCar(Car car){
-        assert(cars != null);
+        assert(cars != null && !cars.contains(car));
         this.cars.add(car);
     }
 
-    private void removeCar(Car car){
-        assert(cars != null);
+    protected void removeCar(Car car){
+        assert(cars != null && cars.contains(car));
         this.cars.remove(car);
     }
 

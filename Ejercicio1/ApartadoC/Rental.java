@@ -1,5 +1,7 @@
 import java.time.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
 
 public class Rental {
@@ -14,10 +16,13 @@ public class Rental {
         assert(sDate != null && eDate != null && car != null && customer != null && pickUpOffice != null); 
         assert(noAlquileresSolapados(customer, sDate) && sDate.isBefore(eDate) && noOficinasDistintas(car, pickUpOffice)); // Se comprueban las restricciones de integridad 1, 2 y 3
         this.car = c;
+        c.addRental(this);
         this.startDate = sDate;
         this.endDate = eDate;
         this.customer = customer;
+        customer.addRental(this);
         this.pickUpOffice = pickUpOffice;
+        pickUpOffice.addRental(this);
     }
 
 //-------------------- GETTERS --------------------------
@@ -57,17 +62,29 @@ public class Rental {
 
     private void setCar(Car car) {
         assert(car != null);
+        if(this.car != null) {
+            this.car.removeRental(this);
+        }
         this.car = car;
+        car.addRental(this);
     }
 
     private void setCustomer(Customer customer) {
         assert(customer != null);
+        if(this.customer != null) {
+            this.customer.removeRental(this);
+        }
         this.customer = customer;
+        customer.addRental(this);        
     }
 
     private void setpickUpOffice(RentalOffice pickUpOffice) {
         assert(pickUpOffice != null);
+        if(this.pickUpOffice != null) {
+            this.pickUpOffice.removeRental(this);
+        }
         this.pickUpOffice = pickUpOffice;
+        pickUpOffice.addRental(this);
     }
 
 //-------------------- OTHER METHODS --------------------------
@@ -75,10 +92,14 @@ public class Rental {
     /**
      * Comprueba que un cliente no tenga alquileres solapados
      */
-    private boolean noAlquileresSolapados(Customer customer, LocalDateTime startDate) { 
+    private boolean noAlquileresSolapados(Customer customer, LocalDateTime startDate) { // REVISAR
         boolean sol = true;
-        List<Rental> allRentals = new ArrayList<>(customer.getRentalsOnSite()); // No se puede crear un arraylist de un tipo enumerado
-        allRentals.addAll(customer.getWebRentals()); // addAll no es aplicable para un tipo Enumerado
+        List<Rental> allRentals = new ArrayList<>(); 
+        Enumeration<Rental> listaRentals = customer.getRentals();
+        //añadir todos los rentals del enumeration en la lista 
+        while (listaRentals.hasMoreElements()) {
+            allRentals.add(listaRentals.nextElement());
+        }        
         for(Rental rental: allRentals) {
             if(rental.getEndDate().isAfter(startDate)){
                 sol = false;

@@ -28,7 +28,7 @@ public class RentalOffice {
         return feeForDelivery;
     }
 
-    protected Enumeration<Rental> getRental(){
+    protected Enumeration<Rental> getRentals(){
         return Collections.enumeration(rentals);
     }
 
@@ -57,7 +57,7 @@ public class RentalOffice {
         this.rentals.add(rental);
     }
 
-    private void removeRental(Rental rental){
+    protected void removeRental(Rental rental){
         assert(rentals != null);
         this.rentals.remove(rental);
     }
@@ -67,7 +67,7 @@ public class RentalOffice {
         this.cars.add(car);
     }
 
-    private void removeCar(Car car){
+    protected void removeCar(Car car){
         assert(cars != null);
         this.cars.remove(car);
     }
@@ -77,7 +77,7 @@ public class RentalOffice {
         this.webRentals.add(webRentals);
     }
 
-    private void removeWebRental(WebRental webRentals){
+    protected void removeWebRental(WebRental webRentals){
         assert(webRentals != null);
         this.webRentals.remove(webRentals);
     }

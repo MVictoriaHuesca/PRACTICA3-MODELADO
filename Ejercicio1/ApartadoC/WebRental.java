@@ -7,10 +7,10 @@ public class WebRental extends Rental{
     
     public WebRental(LocalDateTime startDate, LocalDateTime endDate, Car car, Customer customer, RentalOffice pickUpOffice, RentalOffice deliveryOffice) {
         super(startDate, endDate, car, customer, pickUpOffice);
-        assert(deliveryOffice != null);
-        assert(comprobarHoraOficinasDiferentes(pickUpOffice, deliveryOffice, endDate));
+        assert(deliveryOffice != null && comprobarHoraOficinasDiferentes(pickUpOffice, deliveryOffice, endDate));
         this.deliveryTime = 0;
         this.deliveryOffice = deliveryOffice;
+        deliveryOffice.addWebRental(this);
     }
 
  //-------------------- GETTERS --------------------------
@@ -30,9 +30,13 @@ public class WebRental extends Rental{
         this.deliveryTime = deliveryTime;
     }
 
-    private void setRentalOffice(RentalOffice deliveryOffice){
+    private void setDeliveryOffice(RentalOffice deliveryOffice){
         assert(deliveryOffice != null);
+        if(this.deliveryOffice != null) {
+            this.deliveryOffice.removeWebRental(this);
+        }
         this.deliveryOffice = deliveryOffice;
+        deliveryOffice.addRental(this);
     }
 
 //-------------------- OTHER METHODS --------------------------
